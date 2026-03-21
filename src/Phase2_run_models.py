@@ -67,7 +67,7 @@ def main():
     
     # Re-order columns for clarity in RAG
     # Date, Close, Log_Return, Sentiment..., Vol_Baseline, Vol_Augmented, News_Context
-    rag_output_path = "data/output/garch_volatility_results.csv"
+    rag_output_path = "data/output/fina2350_master_dataset_for_rag.csv"
     final_df.to_csv(rag_output_path)
     logger.info(f"Final RAG-compatible results exported to {rag_output_path}")
 

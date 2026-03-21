@@ -5,16 +5,14 @@ This repository contains the data extraction and econometric modeling pipeline f
 ## Project Structure
 
 - `src/`
-  - `Phase1A_autonomous_scraper.py`: (Deprecated) Initial scraper targeting Google News and GDELT.
-  - `extract_from_csv.py`: The robust extraction script that pulls full-text articles from our curated list (`data_source.csv`), bypassing soft paywalls using `curl_cffi` and `newspaper4k`.
-  - `reprocess_failed.py`: A stealth-optimized script used to rescue failed URLs using rotated browser fingerprints and random jitter.
-  - `clean_dataset.py` / `clean_dataset_v2.py`: Scripts used to filter out short/empty articles, format dates, and finalize the sentiment dataset.
+  - `Phase1A_extract_articles.py`: The robust extraction script that pulls full-text articles from our curated list (`data_source.csv`), bypassing soft paywalls using `curl_cffi` and `newspaper4k`.
   - `Phase1B_build_master.py`: Merges the NLP sentiment dataset with historical GC=F market data from Yahoo Finance, aggregating news context by trading day.
   - `Phase2_run_models.py`: Fits the Baseline GARCH(1,1) and NLP-Augmented GARCH-X(1,1) models, and generates the final volatility charts and RAG dataset.
+  - `Progress_monitor.py`: A real-time terminal dashboard to track extraction progress.
 - `data/`
   - `data_source.csv`: Our curated starting list of 6,400+ macro/financial news URLs.
   - `processed/gold_master_data.csv`: The perfectly aligned 36-month timeline merging GC=F prices, daily sentiment scores (Monetary, Fiscal, Geopolitics), and full article text.
-  - `output/garch_volatility_results.csv`: The final, master dataset containing everything in `gold_master_data.csv` PLUS the computed conditional volatilities from both GARCH models. **(This is the file to use for RAG)**.
+  - `output/fina2350_master_dataset_for_rag.csv`: **(THIS IS THE ONLY FILE YOU NEED FOR THE LLM/RAG PHASE)**. The final, master dataset containing everything in `gold_master_data.csv` PLUS the computed conditional volatilities from both GARCH models. 
   - `output/volatility_comparison.png`: A visual comparison of the Baseline vs. NLP-Augmented volatility.
 
 ## Pipeline Overview
@@ -37,4 +35,4 @@ Using the `arch` library, we fitted two models:
 ## Next Steps for the Group
 The heavy lifting for data engineering and econometric modeling is complete.
 1. Review the `volatility_comparison.png` chart to see the model differences.
-2. Use `garch_volatility_results.csv` for the RAG pipeline. It contains the exact `News_Context` for every trading day alongside the market volatility, making it perfectly formatted for LLM ingestion.
+2. Use **`data/output/fina2350_master_dataset_for_rag.csv`** for the RAG pipeline. It contains the exact `News_Context` for every trading day alongside the market volatility, making it perfectly formatted for LLM ingestion.

@@ -18,6 +18,6 @@ data/processed/*
 
 !data/output/
 data/output/*
-!data/output/garch_volatility_results.csv
+!data/output/fina2350_master_dataset_for_rag.csv
 !data/output/volatility_comparison.png
 
