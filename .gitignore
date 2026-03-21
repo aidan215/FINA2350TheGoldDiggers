@@ -1,0 +1,18 @@
+.env
+__pycache__/
+*.pyc
+
+# Ignore personal university folders
+Exam/
+Lecture/
+Tutorial/
+Assignment/
+
+# Ignore all data by default
+data/*
+!data/processed/
+
+# Ignore contents of processed except the one file
+data/processed/*
+!data/processed/gold_master_data.csv
+

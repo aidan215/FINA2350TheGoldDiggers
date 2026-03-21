@@ -1,0 +1,8 @@
+gnews
+google-genai
+pandas
+yfinance
+arch
+matplotlib
+numpy
+python-dotenv
