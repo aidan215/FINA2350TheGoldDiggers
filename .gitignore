@@ -16,3 +16,8 @@ data/*
 data/processed/*
 !data/processed/gold_master_data.csv
 
+!data/output/
+data/output/*
+!data/output/garch_volatility_results.csv
+!data/output/volatility_comparison.png
+
