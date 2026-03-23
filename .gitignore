@@ -20,4 +20,5 @@ data/processed/*
 data/output/*
 !data/output/fina2350_master_dataset_for_rag.csv
 !data/output/volatility_comparison.png
+!data/output/garch_results_summary.txt
 
