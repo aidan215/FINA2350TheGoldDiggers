@@ -17,11 +17,24 @@ def main():
         return
 
     df = pd.read_csv(data_path, index_col='Date', parse_dates=True)
-    df = df.dropna(subset=['Log_Return', 'Monetary', 'Fiscal', 'Geopolitics'])
+    
+    # 1.5 Address Look-Ahead Bias (per Aidan's feedback)
+    # Shift NLP features by 1 day so we use yesterday's info to predict today's volatility
+    nlp_cols = ['Monetary', 'Fiscal', 'Geopolitics']
+    df[nlp_cols] = df[nlp_cols].shift(1)
+    df = df.dropna(subset=['Log_Return'] + nlp_cols)
 
     # Define variables
     y = df['Log_Return']
-    X = df[['Monetary', 'Fiscal', 'Geopolitics']]
+    X = df[nlp_cols]
+
+    # Export Actual Volatility for verification (Day and Actual Volatility)
+    actual_vol_df = pd.DataFrame({
+        'Actual_Volatility': y.abs()
+    }, index=y.index)
+    actual_vol_path = "data/output/actual_volatility.csv"
+    actual_vol_df.to_csv(actual_vol_path)
+    logger.info(f"Actual volatility exported to {actual_vol_path}")
 
     # 2. Fit Baseline GARCH(1,1)
     logger.info("Fitting Baseline GARCH(1,1) Model...")
